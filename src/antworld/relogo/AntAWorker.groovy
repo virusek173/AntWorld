@@ -47,8 +47,11 @@ class AntAWorker extends ReLogoTurtle {
 				// Check if any enemy ant on the same patch
 				if (antsB > 0) antMode = MODE_BACKNEST
 				if (patchMode == patchHere().MODE_TEAMA) {
-					print("ATTTAKKK")
 					antMode = MODE_FULLATTACK;
+				}
+				
+				if (patchMode == patchHere().MODE_TEAMB) {
+					antMode = MODE_BACKNEST;
 				}
 				
 				break;
@@ -60,14 +63,25 @@ class AntAWorker extends ReLogoTurtle {
 				patchHere().sprayPheromones(team)
 				break;
 			case MODE_FULLATTACK:
-//				def winner = oneOf(neighbors()){
-//					patch().patchMode == patchHere().MODE_TEAMA
-//				}
-//				face(winner)
+				def attackPatches = maxNOf(4, neighbors()){
+					it.distancexy(nestCoordinates.x, nestCoordinates.y)
+				}
+				def enemyDirectionWinner = maxOneOf(attackPatches){
+					if(it.patchMode == patchHere().MODE_TEAMA) 1 else 0
+				}
+				def randomWinner = maxOneOf(neighbors()){
+					if(it.patchMode == patchHere().MODE_TEAMA) 1 else 0
+				}
+				def winner = enemyDirectionWinner
 				
-				facexy(enemyNestCoordinates.x, enemyNestCoordinates.y)
+				if (enemyDirectionWinner.patchMode != patchHere().MODE_TEAMA) winner = randomWinner
+//				if (winner == randomWinner && randomFloat(1) < 0.5) winner = enemyDirectionWinner
 				
-				setPcolor(yellow())
+				face(winner)
+//				facexy(enemyNestCoordinates.x, enemyNestCoordinates.y)
+				
+//				setPcolor(yellow())
+				patchHere().sprayPheromones(team)
 				break;
 			default:
 				println("should never happen");
