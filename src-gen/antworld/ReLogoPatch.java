@@ -413,6 +413,203 @@ public class ReLogoPatch extends BasePatch{
 	}
 
 	/**
+	 * Sprouts (makes) a number of new antWorkers and then executes a set of commands on the
+	 * created antWorkers.
+	 * 
+	 * @param number
+	 *            a number
+	 * @param closure
+	 *            a set of commands
+	 * @return created antWorkers
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.AntWorker")
+	public AgentSet<antworld.relogo.AntWorker> sproutAntWorkers(int number, Closure closure) {
+		AgentSet<antworld.relogo.AntWorker> result = new AgentSet<>();
+		AgentSet<Turtle> createResult = this.sprout(number,closure,"AntWorker");
+		for (Turtle t : createResult){
+			if (t instanceof antworld.relogo.AntWorker){
+				result.add((antworld.relogo.AntWorker)t);
+			}
+		} 
+		return result;
+	}
+
+	/**
+	 * Sprouts (makes) a number of new antWorkers and then executes a set of commands on the
+	 * created antWorkers.
+	 * 
+	 * @param number
+	 *            a number
+	 * @param closure
+	 *            a set of commands
+	 * @return created antWorkers
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.AntWorker")
+	public AgentSet<antworld.relogo.AntWorker> sproutAntWorkers(int number) {
+		return sproutAntWorkers(number,null);
+	}
+
+	/**
+	 * Returns an agentset of antWorkers from the patch of the caller.
+	 * 
+	 * @return agentset of antWorkers from the caller's patch
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.AntWorker")
+	public AgentSet<antworld.relogo.AntWorker> antWorkersHere(){
+	  Grid grid = getMyObserver().getGrid();
+	  GridPoint gridPoint = grid.getLocation(this);
+	  AgentSet<antworld.relogo.AntWorker> result = new AgentSet<antworld.relogo.AntWorker>();
+	  for (Turtle t : Utility.getTurtlesOnGridPoint(gridPoint,getMyObserver(),"antWorker")){
+			if (t instanceof antworld.relogo.AntWorker)
+			result.add((antworld.relogo.AntWorker)t);
+		}
+		return result;
+	}
+
+	/**
+	 * Returns the agentset of antWorkers on the patch at the direction (ndx, ndy) from the
+	 * caller.
+	 * 
+	 * @param nX
+	 *            a number
+	 * @param nY
+	 *            a number
+	 * @returns agentset of antWorkers at the direction (nX, nY) from the caller
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.AntWorker")
+	public AgentSet<antworld.relogo.AntWorker> antWorkersAt(Number nX, Number nY){
+		double dx = nX.doubleValue();
+		double dy = nY.doubleValue();
+		double[] displacement = {dx,dy};
+
+		try{
+		GridPoint gridPoint = Utility.getGridPointAtDisplacement(getGridLocationAsNdPoint(),displacement,getMyObserver());
+		AgentSet<antworld.relogo.AntWorker> result = new AgentSet<antworld.relogo.AntWorker>();						
+		for (Turtle t : Utility.getTurtlesOnGridPoint(gridPoint,getMyObserver(),"antWorker")){
+			if (t instanceof antworld.relogo.AntWorker)
+			result.add((antworld.relogo.AntWorker)t);
+		}
+		return result;
+		}
+		catch(SpatialException e){
+			return new AgentSet<antworld.relogo.AntWorker>();
+		}
+	}
+
+	/**
+	 * Returns an agentset of antWorkers on a given patch.
+	 * 
+	 * @param p
+	 *            a patch
+	 * @return agentset of antWorkers on patch p
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.AntWorker")
+	public AgentSet<antworld.relogo.AntWorker> antWorkersOn(Patch p){
+		AgentSet<antworld.relogo.AntWorker> result = new AgentSet<antworld.relogo.AntWorker>();						
+		for (Turtle t : Utility.getTurtlesOnGridPoint(p.getGridLocation(),getMyObserver(),"antWorker")){
+			if (t instanceof antworld.relogo.AntWorker)
+			result.add((antworld.relogo.AntWorker)t);
+		}
+		return result;
+	}
+
+	/**
+	 * Returns an agentset of antWorkers on the same patch as a turtle.
+	 * 
+	 * @param t
+	 *            a turtle
+	 * @return agentset of antWorkers on the same patch as turtle t
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.AntWorker")
+	public AgentSet<antworld.relogo.AntWorker> antWorkersOn(Turtle t){
+		AgentSet<antworld.relogo.AntWorker> result = new AgentSet<antworld.relogo.AntWorker>();						
+		for (Turtle tt : Utility.getTurtlesOnGridPoint(Utility.ndPointToGridPoint(t.getTurtleLocation()),getMyObserver(),"antWorker")){
+			if (tt instanceof antworld.relogo.AntWorker)
+			result.add((antworld.relogo.AntWorker)tt);
+		}
+		return result;
+	}
+
+	/**
+	 * Returns an agentset of antWorkers on the patches in a collection or on the patches
+	 * that a collection of turtles are.
+	 * 
+	 * @param a
+	 *            a collection
+	 * @return agentset of antWorkers on the patches in collection a or on the patches
+	 *         that collection a turtles are
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.AntWorker")
+	public AgentSet<antworld.relogo.AntWorker> antWorkersOn(Collection c){
+
+		if (c == null || c.isEmpty()){
+			return new AgentSet<antworld.relogo.AntWorker>();
+		}
+
+		Set<antworld.relogo.AntWorker> total = new HashSet<antworld.relogo.AntWorker>();
+		if (c.iterator().next() instanceof Turtle){
+			for (Object o : c){
+				if (o instanceof Turtle){
+					Turtle t = (Turtle) o;
+					total.addAll(antWorkersOn(t));
+				}
+			}
+		}
+		else {
+			for (Object o : c){
+				if (o instanceof Patch){
+					Patch p = (Patch) o;
+					total.addAll(antWorkersOn(p));
+				}
+			}
+		}
+		return new AgentSet<antworld.relogo.AntWorker>(total);
+	}
+
+	/**
+	 * Queries if object is a antWorker.
+	 * 
+	 * @param o
+	 *            an object
+	 * @return true or false based on whether the object is a antWorker
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.AntWorker")
+	public boolean isAntWorkerQ(Object o){
+		return (o instanceof antworld.relogo.AntWorker);
+	}
+
+	/**
+	 * Returns an agentset containing all antWorkers.
+	 * 
+	 * @return agentset of all antWorkers
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.AntWorker")
+	public AgentSet<antworld.relogo.AntWorker> antWorkers(){
+		AgentSet<antworld.relogo.AntWorker> a = new AgentSet<antworld.relogo.AntWorker>();
+		for (Object e : this.getMyObserver().getContext().getObjects(antworld.relogo.AntWorker.class)) {
+			if (e instanceof antworld.relogo.AntWorker){
+				a.add((antworld.relogo.AntWorker)e);
+			}
+		}
+		return a;
+	}
+
+	/**
+	 * Returns the antWorker with the given who number.
+	 * 
+	 * @param number
+	 *            a number
+	 * @return turtle number
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.AntWorker")
+	public antworld.relogo.AntWorker antWorker(Number number){
+		Turtle turtle = Utility.turtleU(number.intValue(), getMyObserver());
+		if (turtle instanceof antworld.relogo.AntWorker)
+			return (antworld.relogo.AntWorker) turtle;
+		return null;
+	}
+
+	/**
 	 * Sprouts (makes) a number of new userTurtles and then executes a set of commands on the
 	 * created userTurtles.
 	 * 

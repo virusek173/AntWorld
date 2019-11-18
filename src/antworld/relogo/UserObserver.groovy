@@ -18,23 +18,25 @@ class UserObserver extends ReLogoObserver{
 	@Setup
 	def setup(){
 		clearAll()
-		setDefaultShape(AntAWorker,"arrow")
-		setDefaultShape(AntBWorker,"arrow")
-		createAntAWorkers(numAnts){
+		setDefaultShape(AntWorker,"ant_color")
+		setDefaultShape(AntWorker,"ant_color")
+		createAntWorkers(numAnts){
 			// Random but in nest range
 			def randomX = increasedRandom(random(minPxcor), 0)
 			def randomY = increasedRandom(random(minPycor), 0)
 			
 			setxy(randomX, randomY)
 			setColor(green())
+			setTeam(0)
 		}
-		createAntBWorkers(numAnts){
+		createAntWorkers(numAnts){
 			// Random but in nest range
 			def randomX = increasedRandom(random(maxPxcor), 1)
 			def randomY = increasedRandom(random(maxPycor), 1)
 			
 			setxy(randomX, randomY)
 			setColor(red())
+			setTeam(1)
 		}
 		ask(patches()) { 
 			initializePatches()
@@ -44,10 +46,10 @@ class UserObserver extends ReLogoObserver{
 	
 	@Go
 	def go(){
-		ask (antAWorkers()){
+		ask (antWorkers()){
 			step()
 		}
-		ask (antBWorkers()){
+		ask (antWorkers()){
 			step()
 		}
 	}
