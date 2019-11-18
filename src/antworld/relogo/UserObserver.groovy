@@ -18,29 +18,47 @@ class UserObserver extends ReLogoObserver{
 	@Setup
 	def setup(){
 		clearAll()
-		setDefaultShape(AntWorker,"ant")
-		createAntWorkers(numAnts){
+		setDefaultShape(AntAWorker,"arrow")
+		setDefaultShape(AntBWorker,"arrow")
+		createAntAWorkers(numAnts){
 			// Random but in nest range
-			def randomX = increasedRandom(random(minPxcor))
-			def randomY = increasedRandom(random(minPycor))
+			def randomX = increasedRandom(random(minPxcor), 0)
+			def randomY = increasedRandom(random(minPycor), 0)
 			
 			setxy(randomX, randomY)
+			setColor(green())
+		}
+		createAntBWorkers(numAnts){
+			// Random but in nest range
+			def randomX = increasedRandom(random(maxPxcor), 1)
+			def randomY = increasedRandom(random(maxPycor), 1)
+			
+			setxy(randomX, randomY)
+			setColor(red())
 		}
 		ask(patches()) { 
 			initializePatches()
+			// create nests
 		}
 	}
 	
 	@Go
 	def go(){
-		
-		ask (antWorkers()){
+		ask (antAWorkers()){
+			step()
+		}
+		ask (antBWorkers()){
 			step()
 		}
 	}
 	
-	def increasedRandom(def x) {
-		if (x>-8) return (x-8)
+	def increasedRandom(def x, int team) {
+//		if (team) {
+//			if (x<8) return (x+8)
+//			
+//		} else {
+//			if (x>-8) return (x-8)
+//		}
 			
 		return x
 	}
