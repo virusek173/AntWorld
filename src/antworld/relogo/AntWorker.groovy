@@ -112,7 +112,6 @@ class AntWorker extends ReLogoTurtle {
 					
 					if (neutralWalkCounter > 100)  {
 						antMode = MODE_PROSPECTOR
-						print("start MODE_PROSPECTOR")
 						neutralWalkCounter = 0
 						moveInProspect = 1000
 					}
