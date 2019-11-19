@@ -42,6 +42,8 @@ class UserObserver extends ReLogoObserver{
 			initializePatches()
 			setMaxPheromoneTimeG(pheromoneTimeG)
 			setMaxPheromoneTimeR(pheromoneTimeR)
+			initializeNests()
+			
 			// create nests
 		}
 	}

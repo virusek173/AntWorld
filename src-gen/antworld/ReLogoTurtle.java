@@ -1019,5 +1019,26 @@ public class ReLogoTurtle extends BaseTurtle{
 		repast.simphony.relogo.ReLogoModel.getInstance().setModelParam("pheromoneTimeR",value);
 	}
 
+	/**
+	 * Returns the value of the global variable numLarva.
+	 *
+	 * @return the value of the global variable numLarva
+	 */
+	@ReLogoBuilderGeneratedFor("global: numLarva")
+	public Object getNumLarva(){
+		return repast.simphony.relogo.ReLogoModel.getInstance().getModelParam("numLarva");
+	}
+
+	/**
+	 * Sets the value of the global variable numLarva.
+	 *
+	 * @param value
+	 *            a value
+	 */
+	@ReLogoBuilderGeneratedFor("global: numLarva")
+	public void setNumLarva(Object value){
+		repast.simphony.relogo.ReLogoModel.getInstance().setModelParam("numLarva",value);
+	}
+
 
 }

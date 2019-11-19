@@ -29,7 +29,7 @@ class AntWorker extends ReLogoTurtle {
 		def patchMode = patchHere().patchMode
 		
 		def nestCoordinates = [x: minPxcor, y: minPycor]
-		def nestBorderCoordinates = [x: minPxcor + 4, y: minPycor + 4]
+		def nestBorderCoordinates =  (( getPxcor() + getPycor() + 32 ) <= 8 )
 		def allyPathMode = patchHere().MODE_TEAMA
 		def enemyPathMode = patchHere().MODE_TEAMB
 		def enemyTeam = 1
@@ -37,7 +37,7 @@ class AntWorker extends ReLogoTurtle {
 		
 		if (team == 1) {
 			nestCoordinates = [x: maxPxcor, y: maxPycor]
-			nestBorderCoordinates = [x: maxPxcor - 4, y: maxPycor - 4]
+			nestBorderCoordinates = ( (getPxcor() + getPycor()) - 32 >= -8 )
 			enemyTeam = 0
 			allyPathMode = patchHere().MODE_TEAMB
 			enemyPathMode = patchHere().MODE_TEAMA
@@ -75,16 +75,10 @@ class AntWorker extends ReLogoTurtle {
 				}
 				
 				break;
-			case MODE_BACKNEST:
-				if (team == 1) {
-					if (currentPX > nestBorderCoordinates.x && currentPY > nestBorderCoordinates.y) {
+			case MODE_BACKNEST: 
+					if (nestBorderCoordinates) {
 						antMode = MODE_PROSPECTOR
-					}
-				} else {
-					if (currentPX < nestBorderCoordinates.x && currentPY < nestBorderCoordinates.y) {
-						antMode = MODE_PROSPECTOR
-					}
-				}
+					} 
 				
 				facexy(nestCoordinates.x, nestCoordinates.y)
 				patchHere().sprayPheromones(team)
