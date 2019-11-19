@@ -25,6 +25,15 @@ class UserPatch extends ReLogoPatch {
 		pcolor = violet()
 	}
 	
+	def initializeNests() {
+		// if x,y have the same sign and it's not > 5 sum of distance from nest 
+		if((getPxcor()*getPycor() > 1)  && (abs(getPxcor()) + abs(getPycor()) - 32) > -8) {
+				pcolor = black()
+			}
+	}
+	
+	
+	
 	def sprayPheromones(int team) {
 		patchMode = team
 		pcolor = pheromoneColors[team]

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="/Users/marcinkonieczny/Documents/AntWorld/Zombies_Demo/src"/>
+		<item value="/Users/marcinkonieczny/Documents/AntWorld/AntWorld"/>
+		<item value="/Users/marcinkonieczny/Documents/AntWorld"/>
+	</list>
+	<section name="ResourceNavigator">
+		<item key="ResourceViewer.STORE_SORT_TYPE" value="1"/>
+		<item key="ResourceWorkingSetFilter.STORE_WORKING_SET" value="Aggregate for window 1574180506050"/>
+	</section>
+</section>
