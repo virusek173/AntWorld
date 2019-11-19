@@ -529,24 +529,24 @@ public class ReLogoObserver extends BaseObserver{
 	}
 
 	/**
-	 * Returns the value of the global variable numLarva.
+	 * Returns the value of the global variable numLarvas.
 	 *
-	 * @return the value of the global variable numLarva
+	 * @return the value of the global variable numLarvas
 	 */
-	@ReLogoBuilderGeneratedFor("global: numLarva")
-	public Object getNumLarva(){
-		return repast.simphony.relogo.ReLogoModel.getInstance().getModelParam("numLarva");
+	@ReLogoBuilderGeneratedFor("global: numLarvas")
+	public Object getNumLarvas(){
+		return repast.simphony.relogo.ReLogoModel.getInstance().getModelParam("numLarvas");
 	}
 
 	/**
-	 * Sets the value of the global variable numLarva.
+	 * Sets the value of the global variable numLarvas.
 	 *
 	 * @param value
 	 *            a value
 	 */
-	@ReLogoBuilderGeneratedFor("global: numLarva")
-	public void setNumLarva(Object value){
-		repast.simphony.relogo.ReLogoModel.getInstance().setModelParam("numLarva",value);
+	@ReLogoBuilderGeneratedFor("global: numLarvas")
+	public void setNumLarvas(Object value){
+		repast.simphony.relogo.ReLogoModel.getInstance().setModelParam("numLarvas",value);
 	}
 
 

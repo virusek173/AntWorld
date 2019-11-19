@@ -28,6 +28,6 @@ public class UserGlobalsAndPanelFactory extends AbstractReLogoGlobalsAndPanelFac
 		addSliderWL("numAntsR", "Ants in team red", 1, 1, 200, 100)
 		addSliderWL("pheromoneTimeG", "Time of pheromone exist for team G", 1, 1, 1600, 800)
 		addSliderWL("pheromoneTimeR", "Time of pheromone exist for team R", 1, 1, 1600, 800)
-		addSliderWL("numLarva", "Number of Larvas", 1, 1, 10, 5)
+		addSliderWL("numLarvas", "Number of Larvas", 1, 1, 10, 5)
 	}
 }
