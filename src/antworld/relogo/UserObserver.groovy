@@ -41,6 +41,7 @@ class UserObserver extends ReLogoObserver{
 		ask(patches()) { 
 			initializePatches()
 			initializeNests()
+			
 			// create nests
 		}
 	}
