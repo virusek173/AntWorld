@@ -15,11 +15,13 @@ import repast.simphony.relogo.schedule.Setup
 
 class AntWorker extends ReLogoTurtle {
 	def team
-	
+	def hp = 100
 	def MODE_PROSPECTOR = 0
 	def MODE_BACKNEST = 1
 	def MODE_FULLATTACK = 2
 	def antMode = MODE_PROSPECTOR
+	def neutralWalkCounter = 0
+	def moveInProspect = 0
 	
 	def step(){
 		def currentPX = patchHere().getPxcor()
@@ -31,6 +33,7 @@ class AntWorker extends ReLogoTurtle {
 		def allyPathMode = patchHere().MODE_TEAMA
 		def enemyPathMode = patchHere().MODE_TEAMB
 		def enemyTeam = 1
+		setSize(countSize(hp))
 		
 		if (team == 1) {
 			nestCoordinates = [x: maxPxcor, y: maxPycor]
@@ -39,35 +42,30 @@ class AntWorker extends ReLogoTurtle {
 			allyPathMode = patchHere().MODE_TEAMB
 			enemyPathMode = patchHere().MODE_TEAMA
 		}
-//		print("enemyTeam: " + enemyTeam)
-//		print("allyTeam: " + team)
-		
-		// mrówki na patchu
-		// mrówki na patchu obok
-		// przelatujemy po wszystkich i distance
-		// decyzja co robimy
 		
 		switch(antMode) {
 			case MODE_PROSPECTOR:
+				moveInProspect -= 1
 				// Random rotate
 				def rotateAngle = random(360)
 				left(rotateAngle)
 				
-//				def ifEnemyAntsHere = max(antWorkersHere()) {
-//					it.team == enemyTeam
-//				}
-				
-				def enemyAnts = filter({it.team == enemyTeam}, antWorkersHere())
-				
-//				def antsA = count(antAWorkersHere())
-//				def antsB = count(antBWorkersHere())
-				
+				def enemyAntsHere = filter({it.team == enemyTeam}, antWorkersHere())				
+				if (count(enemyAntsHere) > 0) {
+					def winnerToAttack = minOneOf(enemyAntsHere){
+						distance(it)
+					}
+					try {
+						winnerToAttack.hp -= 10
+					} catch(Exception e1) {}
+				}
+
 				// Check if any enemy ant on the same patch
-				if (count(enemyAnts) > 0) {
+				if (count(enemyAntsHere) > 0) {
 					antMode = MODE_BACKNEST
 					break;
 				}
-				if (patchMode == allyPathMode) {
+				if (patchMode == allyPathMode && moveInProspect <= 0) {
 					antMode = MODE_FULLATTACK;
 					break;
 				}
@@ -92,24 +90,39 @@ class AntWorker extends ReLogoTurtle {
 				patchHere().sprayPheromones(team)
 				break;
 			case MODE_FULLATTACK:
-				def attackPatches = maxNOf(4, neighbors()){
-					it.distancexy(nestCoordinates.x, nestCoordinates.y)
-				}
-				def enemyDirectionWinner = maxOneOf(attackPatches){
-					if(it.patchMode == team) 1 else 0
-				}
-				def randomWinner = maxOneOf(neighbors()){
-					if(it.patchMode == team) 1 else 0
-				}
-				def winner = enemyDirectionWinner
+				def enemyAntsHere = filter({it.team == enemyTeam}, antWorkersHere())
+				def enemyAntsNeighbors = filter({it.team == enemyTeam}, antWorkersOn(neighbors()))
+				def enemyAntsNeighborsAndHere = enemyAntsHere + enemyAntsNeighbors
+
 				
-				if (enemyDirectionWinner.patchMode != team) winner = randomWinner
+				// If enemy ants then attack
+				if (count(enemyAntsNeighborsAndHere) > 0) {
+					def winnerToAttack = minOneOf(enemyAntsNeighborsAndHere){
+						distance(it)
+					}
+					try {
+						winnerToAttack.hp -= 10
+					} catch(Exception e1) {}
+				//	else move offensive			
+				} else {
+					def winnerPatch = faceToOffensive(nestCoordinates, enemyTeam)
+					if (winnerPatch.patchMode == patchHere().MODE_NEUTRAL) {
+						neutralWalkCounter += 1
+					} else
+					
+					if (neutralWalkCounter > 100)  {
+						antMode = MODE_PROSPECTOR
+						print("start MODE_PROSPECTOR")
+						neutralWalkCounter = 0
+						moveInProspect = 1000
+					}
+					
+					face(winnerPatch)
+				}
+				
 //				if (winner == randomWinner && randomFloat(1) < 0.5) winner = enemyDirectionWinner
 				
-				face(winner)
-//				facexy(enemyNestCoordinates.x, enemyNestCoordinates.y)
 				
-//				setPcolor(yellow())
 				patchHere().sprayPheromones(team)
 				break;
 			default:
@@ -119,5 +132,44 @@ class AntWorker extends ReLogoTurtle {
 		
 //		move forward
 		fd(0.1)	
+		
+		// Die 
+		if (hp <= 0) die()
+	}
+	
+	def countSize(int hp) { // [1-4] [1-100]
+		return 0.5 + (0.01 * hp)
+	}
+	
+	def faceToOffensive(def nestCoordinates, enemyTeam) {
+		def attackPatches = maxNOf(4, neighbors()){
+			it.distancexy(nestCoordinates.x, nestCoordinates.y)
+		}
+		def enemyDirectionWinner = maxOneOf(attackPatches){
+			if(it.patchMode == enemyTeam) 1 else 0
+		}
+		
+		def enemyDirectionOnAllyPatch = maxOneOf(attackPatches){
+			if(it.patchMode == team) 1 else 0
+		}
+		def randomDirectionOnAllyPatch = maxOneOf(neighbors()){
+			if(it.patchMode == team) 1 else 0
+		}
+		def randomWinner = maxOneOf(neighbors()){
+			1
+		}
+		
+		def winner = enemyDirectionOnAllyPatch
+		def ofensiveRatio = 0.35
+		def randomNum = randomFloat(1)
+	
+		if (enemyDirectionWinner.patchMode == enemyTeam) {
+			winner = randomDirectionOnAllyPatch
+			if (ofensiveRatio > randomNum) winner = enemyDirectionWinner
+		} else {
+			if (ofensiveRatio > randomNum) winner = randomWinner
+		}
+		
+		return winner
 	}
 }

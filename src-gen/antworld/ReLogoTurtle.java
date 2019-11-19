@@ -433,6 +433,90 @@ public class ReLogoTurtle extends BaseTurtle{
 	}
 
 	/**
+	 * Returns the value from the getPheromoneHalfColors() method of the underlying patch.
+	 * 
+	 * @return getPheromoneHalfColors() of type java.lang.Object
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.UserPatch")
+	public java.lang.Object getPheromoneHalfColors(){
+		antworld.relogo.UserPatch p = (antworld.relogo.UserPatch)patchHere();
+		return p.getPheromoneHalfColors();
+	}
+
+	/**
+	 * Calls the setPheromoneHalfColors(java.lang.Object) method of the underlying patch.
+	 * 
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.UserPatch")
+	public void setPheromoneHalfColors(java.lang.Object value){
+		antworld.relogo.UserPatch p = (antworld.relogo.UserPatch)patchHere();
+		p.setPheromoneHalfColors(value);
+	}
+
+	/**
+	 * Returns the value from the getPheromoneTime() method of the underlying patch.
+	 * 
+	 * @return getPheromoneTime() of type java.lang.Object
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.UserPatch")
+	public java.lang.Object getPheromoneTime(){
+		antworld.relogo.UserPatch p = (antworld.relogo.UserPatch)patchHere();
+		return p.getPheromoneTime();
+	}
+
+	/**
+	 * Calls the setPheromoneTime(java.lang.Object) method of the underlying patch.
+	 * 
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.UserPatch")
+	public void setPheromoneTime(java.lang.Object value){
+		antworld.relogo.UserPatch p = (antworld.relogo.UserPatch)patchHere();
+		p.setPheromoneTime(value);
+	}
+
+	/**
+	 * Returns the value from the getMaxPheromoneTimeG() method of the underlying patch.
+	 * 
+	 * @return getMaxPheromoneTimeG() of type java.lang.Object
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.UserPatch")
+	public java.lang.Object getMaxPheromoneTimeG(){
+		antworld.relogo.UserPatch p = (antworld.relogo.UserPatch)patchHere();
+		return p.getMaxPheromoneTimeG();
+	}
+
+	/**
+	 * Calls the setMaxPheromoneTimeG(java.lang.Object) method of the underlying patch.
+	 * 
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.UserPatch")
+	public void setMaxPheromoneTimeG(java.lang.Object value){
+		antworld.relogo.UserPatch p = (antworld.relogo.UserPatch)patchHere();
+		p.setMaxPheromoneTimeG(value);
+	}
+
+	/**
+	 * Returns the value from the getMaxPheromoneTimeR() method of the underlying patch.
+	 * 
+	 * @return getMaxPheromoneTimeR() of type java.lang.Object
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.UserPatch")
+	public java.lang.Object getMaxPheromoneTimeR(){
+		antworld.relogo.UserPatch p = (antworld.relogo.UserPatch)patchHere();
+		return p.getMaxPheromoneTimeR();
+	}
+
+	/**
+	 * Calls the setMaxPheromoneTimeR(java.lang.Object) method of the underlying patch.
+	 * 
+	 */
+	@ReLogoBuilderGeneratedFor("antworld.relogo.UserPatch")
+	public void setMaxPheromoneTimeR(java.lang.Object value){
+		antworld.relogo.UserPatch p = (antworld.relogo.UserPatch)patchHere();
+		p.setMaxPheromoneTimeR(value);
+	}
+
+	/**
 	 * Returns the value from the getMODE_TEAMA() method of the underlying patch.
 	 * 
 	 * @return getMODE_TEAMA() of type java.lang.Object
@@ -852,24 +936,87 @@ public class ReLogoTurtle extends BaseTurtle{
 	}
 
 	/**
-	 * Returns the value of the global variable numAnts.
+	 * Returns the value of the global variable numAntsG.
 	 *
-	 * @return the value of the global variable numAnts
+	 * @return the value of the global variable numAntsG
 	 */
-	@ReLogoBuilderGeneratedFor("global: numAnts")
-	public Object getNumAnts(){
-		return repast.simphony.relogo.ReLogoModel.getInstance().getModelParam("numAnts");
+	@ReLogoBuilderGeneratedFor("global: numAntsG")
+	public Object getNumAntsG(){
+		return repast.simphony.relogo.ReLogoModel.getInstance().getModelParam("numAntsG");
 	}
 
 	/**
-	 * Sets the value of the global variable numAnts.
+	 * Sets the value of the global variable numAntsG.
 	 *
 	 * @param value
 	 *            a value
 	 */
-	@ReLogoBuilderGeneratedFor("global: numAnts")
-	public void setNumAnts(Object value){
-		repast.simphony.relogo.ReLogoModel.getInstance().setModelParam("numAnts",value);
+	@ReLogoBuilderGeneratedFor("global: numAntsG")
+	public void setNumAntsG(Object value){
+		repast.simphony.relogo.ReLogoModel.getInstance().setModelParam("numAntsG",value);
+	}
+
+	/**
+	 * Returns the value of the global variable numAntsR.
+	 *
+	 * @return the value of the global variable numAntsR
+	 */
+	@ReLogoBuilderGeneratedFor("global: numAntsR")
+	public Object getNumAntsR(){
+		return repast.simphony.relogo.ReLogoModel.getInstance().getModelParam("numAntsR");
+	}
+
+	/**
+	 * Sets the value of the global variable numAntsR.
+	 *
+	 * @param value
+	 *            a value
+	 */
+	@ReLogoBuilderGeneratedFor("global: numAntsR")
+	public void setNumAntsR(Object value){
+		repast.simphony.relogo.ReLogoModel.getInstance().setModelParam("numAntsR",value);
+	}
+
+	/**
+	 * Returns the value of the global variable pheromoneTimeG.
+	 *
+	 * @return the value of the global variable pheromoneTimeG
+	 */
+	@ReLogoBuilderGeneratedFor("global: pheromoneTimeG")
+	public Object getPheromoneTimeG(){
+		return repast.simphony.relogo.ReLogoModel.getInstance().getModelParam("pheromoneTimeG");
+	}
+
+	/**
+	 * Sets the value of the global variable pheromoneTimeG.
+	 *
+	 * @param value
+	 *            a value
+	 */
+	@ReLogoBuilderGeneratedFor("global: pheromoneTimeG")
+	public void setPheromoneTimeG(Object value){
+		repast.simphony.relogo.ReLogoModel.getInstance().setModelParam("pheromoneTimeG",value);
+	}
+
+	/**
+	 * Returns the value of the global variable pheromoneTimeR.
+	 *
+	 * @return the value of the global variable pheromoneTimeR
+	 */
+	@ReLogoBuilderGeneratedFor("global: pheromoneTimeR")
+	public Object getPheromoneTimeR(){
+		return repast.simphony.relogo.ReLogoModel.getInstance().getModelParam("pheromoneTimeR");
+	}
+
+	/**
+	 * Sets the value of the global variable pheromoneTimeR.
+	 *
+	 * @param value
+	 *            a value
+	 */
+	@ReLogoBuilderGeneratedFor("global: pheromoneTimeR")
+	public void setPheromoneTimeR(Object value){
+		repast.simphony.relogo.ReLogoModel.getInstance().setModelParam("pheromoneTimeR",value);
 	}
 
 
