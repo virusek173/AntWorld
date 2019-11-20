@@ -20,23 +20,53 @@ class UserObserver extends ReLogoObserver{
 		clearAll()
 		setDefaultShape(AntWorker,"ant_color")
 		setDefaultShape(AntWorker,"ant_color")
-		createAntWorkers(numAntsG){
-			// Random but in nest range
-			def randomX = increasedRandom(random(minPxcor), 0)
-			def randomY = increasedRandom(random(minPycor), 0)
+		createAntWorkers(numWorkerAntsG){
+			def randomX = random(minPxcor)
+			def randomY = random(minPycor)
 			
 			setxy(randomX, randomY)
-			setColor(green())
+			setColor(lime())
 			setTeam(0)
 		}
-		createAntWorkers(numAntsR){
-			// Random but in nest range
-			def randomX = increasedRandom(random(maxPxcor), 1)
-			def randomY = increasedRandom(random(maxPycor), 1)
+		createAntWorkers(numWarriorAntsG){
+			def randomX = random(minPxcor)
+			def randomY = random(minPycor)
+			
+			if (chooseWarriorAntsSet == "All warriors near nest" || chooseWarriorAntsSet == "Green warriors near nest") {
+				// Random but in nest range
+				randomX = closestNestRandom(random(minPxcor), 0)
+				randomY = closestNestRandom(random(minPycor), 0)
+			}
+			
+			setxy(randomX, randomY)
+			setColor(cyan())
+			setTeam(0)
+			setHp(200)
+			setAttackDamage(30)
+		}
+		createAntWorkers(numWorkerAntsR){
+			def randomX = random(maxPxcor)
+			def randomY = random(maxPycor)
 			
 			setxy(randomX, randomY)
 			setColor(red())
 			setTeam(1)
+		}
+		createAntWorkers(numWarriorAntsR){
+			def randomX = random(maxPxcor)
+			def randomY = random(maxPycor)
+			
+			if (chooseWarriorAntsSet == "All warriors near nest" || chooseWarriorAntsSet == "Red warriors near nest") {
+				// Random but in nest range
+				randomX = closestNestRandom(random(maxPxcor), 1)
+				randomY = closestNestRandom(random(maxPycor), 1)
+			}
+			
+			setxy(randomX, randomY)
+			setColor(pink())
+			setTeam(1)
+			setHp(200)
+			setAttackDamage(30)
 		}
 			
 			//def larvas_patches = filter({it.type=="larwa"}, patches())
@@ -74,13 +104,13 @@ class UserObserver extends ReLogoObserver{
 		
 		if( (x1 + y1 + 32) < 8 && countLarvasA > 0) {
 				patch(x1,y1).setPcolor(yellow())
-				print("x1:"+x1+" y1:"+y1)
+//				print("x1:"+x1+" y1:"+y1)
 				countLarvasA -= 1
 			}
 			
 		if( (x2 + y2 - 32) > -8 && countLarvasB > 0){
 				patch(x2,y2).setPcolor(yellow())
-				print("x2:"+x2+" y2:"+y2)
+//				print("x2:"+x2+" y2:"+y2)
 				countLarvasB -= 1
 			}
 		}
@@ -106,4 +136,14 @@ class UserObserver extends ReLogoObserver{
 			
 		return x
 	}
+	def closestNestRandom(def x, int team) {
+				if (team) {
+					if (x<8) return (x+8)
+		
+				} else {
+					if (x>-8) return (x-8)
+				}
+					
+				return x
+		}
 }

@@ -24,10 +24,14 @@ public class UserGlobalsAndPanelFactory extends AbstractReLogoGlobalsAndPanelFac
 	        
 		 */
 		
-		addSliderWL("numAntsG", "Ants in team green", 1, 1, 200, 100)
-		addSliderWL("numAntsR", "Ants in team red", 1, 1, 200, 100)
-		addSliderWL("pheromoneTimeG", "Time of pheromone exist for team G", 1, 1, 1600, 800)
-		addSliderWL("pheromoneTimeR", "Time of pheromone exist for team R", 1, 1, 1600, 800)
+		
+		addSliderWL("numWorkerAntsG", "Worker Ants in team green", 1, 1, 200, 100)
+		addSliderWL("numWorkerAntsR", "Worker Ants in team red", 1, 1, 200, 100)
+		addSliderWL("numWarriorAntsG", "Warrior Ants in team green", 1, 1, 50, 10)
+		addSliderWL("numWarriorAntsR", "Warrior Ants in team red", 1, 1, 50, 10)
+		addChooserWL("chooseWarriorAntsSet", "Setup layout of warrior ants", ["Default", "Green warriors near nest", "Red warriors near nest", "All warriors near nest"])
+		addSliderWL("pheromoneTimeG", "Time of pheromone exist for team G", 1, 1, 2400, 1200)
+		addSliderWL("pheromoneTimeR", "Time of pheromone exist for team R", 1, 1, 2400, 1200)
 		addSliderWL("numLarvas", "Number of Larvas", 1, 1, 10, 5)
 	}
 }

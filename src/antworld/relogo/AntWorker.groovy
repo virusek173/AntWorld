@@ -16,6 +16,7 @@ import repast.simphony.relogo.schedule.Setup
 class AntWorker extends ReLogoTurtle {
 	def team
 	def hp = 100
+	def attackDamage = 10
 	def MODE_PROSPECTOR = 0
 	def MODE_BACKNEST = 1
 	def MODE_FULLATTACK = 2
@@ -30,6 +31,7 @@ class AntWorker extends ReLogoTurtle {
 		
 		def nestCoordinates = [x: minPxcor, y: minPycor]
 		def nestBorderCoordinates =  (( getPxcor() + getPycor() + 32 ) <= 8 )
+		def enemyNestBorderCoordinates = ( (getPxcor() + getPycor()) - 32 >= -8 )
 		def allyPathMode = patchHere().MODE_TEAMA
 		def enemyPathMode = patchHere().MODE_TEAMB
 		def enemyTeam = 1
@@ -38,6 +40,7 @@ class AntWorker extends ReLogoTurtle {
 		if (team == 1) {
 			nestCoordinates = [x: maxPxcor, y: maxPycor]
 			nestBorderCoordinates = ( (getPxcor() + getPycor()) - 32 >= -8 )
+			enemyNestBorderCoordinates = (( getPxcor() + getPycor() + 32 ) <= 8 )
 			enemyTeam = 0
 			allyPathMode = patchHere().MODE_TEAMB
 			enemyPathMode = patchHere().MODE_TEAMA
@@ -56,7 +59,7 @@ class AntWorker extends ReLogoTurtle {
 						distance(it)
 					}
 					try {
-						winnerToAttack.hp -= 10
+						winnerToAttack.hp -= attackDamage
 					} catch(Exception e1) {}
 				}
 
@@ -72,6 +75,14 @@ class AntWorker extends ReLogoTurtle {
 				
 				if (patchMode == enemyPathMode) {
 					antMode = MODE_BACKNEST;
+					moveInProspect = 0
+					break;
+				}
+				
+				if (enemyNestBorderCoordinates) {
+					antMode = MODE_BACKNEST;
+					moveInProspect = 0
+					break;
 				}
 				
 				break;
@@ -104,7 +115,7 @@ class AntWorker extends ReLogoTurtle {
 						neutralWalkCounter += 1
 					} else
 					
-					if (neutralWalkCounter > 100)  {
+					if (neutralWalkCounter > 50)  {
 						antMode = MODE_PROSPECTOR
 						neutralWalkCounter = 0
 						moveInProspect = 1000

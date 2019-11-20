@@ -14,8 +14,8 @@ import repast.simphony.relogo.schedule.Setup;
 import antworld.ReLogoPatch;
 
 class UserPatch extends ReLogoPatch {
-	def pheromoneColors = [green() + 20, red() + 10]
-	def pheromoneHalfColors = [green() + 30, red() + 20]
+	def pheromoneColors = [green(), red() + 10]
+	def pheromoneHalfColors = [green() + 20, brown()]
 	def pheromoneTime = 0
 	def maxPheromoneTimeG = 800
 	def maxPheromoneTimeR = 800
