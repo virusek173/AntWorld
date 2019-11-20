@@ -1,5 +1,5 @@
 bin
 src-gen
 *.log
-*.log1
+*.log.1
 
